@@ -1,132 +1,149 @@
-import React, { useState } from 'react';
 
-const overlayStyle = {
-  position: 'absolute',
-  top: 0,
-  left: 0,
-  width: '100vw',
-  height: '100vh',
-  background: '#000',
-  overflow: 'hidden',
-};
+import { useRef, useEffect, useState } from "react";
 
-const topBarStyle = {
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  padding: '10px 16px',
-  color: '#fff',
-  fontSize: '16px',
-  background: 'rgba(0,0,0,0.5)',
-};
-
-const actionGridStyle = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(5, 1fr)',
-  gap: '18px',
-  margin: '40px 0 0 0',
-  justifyContent: 'center',
-  color: '#fff',
-};
-
-const bottomBarStyle = {
-  position: 'fixed',
-  bottom: 0,
-  left: 0,
-  width: '100vw',
-  background: '#181818',
-  color: '#fff',
-  display: 'flex',
-  justifyContent: 'space-around',
-  alignItems: 'center',
-  padding: '12px 0',
-  borderTop: '1px solid #222',
-};
-
-const liveButtonStyle = {
-  background: '#ff3366',
-  color: '#fff',
-  border: 'none',
-  borderRadius: '24px',
-  fontWeight: 'bold',
-  fontSize: '18px',
-  padding: '14px 32px',
-  margin: '24px 0',
-};
-
-const infoStyle = {
-  position: 'absolute',
-  top: '60px',
-  left: '16px',
-  color: '#fff',
-  background: 'rgba(0,0,0,0.5)',
-  borderRadius: '12px',
-  padding: '10px 16px',
-  zIndex: 5,
-  fontSize: '16px',
-};
-
-const counterStyle = {
-  position: 'absolute',
-  top: '16px',
-  right: '16px',
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'flex-end',
-  gap: '8px',
-  color: '#fff',
-  fontSize: '16px',
-};
-
-export default function LiveCreatorPage() {
+export default function Live() {
+  const videoRef = useRef(null);
+  const [title, setTitle] = useState("");
+  const [isLive, setIsLive] = useState(false);
   const [hearts, setHearts] = useState(0);
   const [viewers, setViewers] = useState(0);
 
+  useEffect(() => {
+    if (videoRef.current && navigator.mediaDevices) {
+      navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+        .then(stream => {
+          videoRef.current.srcObject = stream;
+        });
+    }
+  }, []);
+
   return (
-    <div style={overlayStyle}>
-      {/* Top bar */}
-      <div style={topBarStyle}>
-        <span>21:41 🔇</span>
-        <span>Récompenses LIVE évolutives</span>
-        <span>⚙️</span>
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #18181b 0%, #23272f 100%)',
+      color: '#fff',
+      fontFamily: 'Inter, Arial, sans-serif',
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      position: 'relative',
+    }}>
+      {/* Camera preview */}
+      <div style={{
+        width: '100%',
+        maxWidth: 400,
+        aspectRatio: '9/16',
+        background: '#222',
+        borderRadius: 24,
+        overflow: 'hidden',
+        marginTop: 32,
+        boxShadow: '0 8px 32px 0 rgba(0,0,0,0.25)',
+        position: 'relative',
+      }}>
+        <video
+          ref={videoRef}
+          autoPlay
+          muted
+          playsInline
+          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+        />
+        {/* Overlay actions rail */}
+        <div style={{
+          position: 'absolute',
+          right: 12,
+          top: 16,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 18,
+        }}>
+          <ActionIcon label="Retourner" icon="🔄" />
+          <ActionIcon label="Embellir" icon="✨" />
+          <ActionIcon label="Effets" icon="🎭" />
+          <ActionIcon label="Paramètres" icon="⚙️" />
+          <ActionIcon label="Fan Club" icon="💖" />
+          <ActionIcon label="Service+" icon="🛠️" />
+          <ActionIcon label="Interagir" icon="🤝" />
+          <ActionIcon label="Partager" icon="🔗" />
+          <ActionIcon label="Promouvoir" icon="🔥" />
+        </div>
+        {/* Overlay stats */}
+        <div style={{
+          position: 'absolute',
+          left: 16,
+          top: 16,
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 8,
+        }}>
+          <div style={{ fontSize: 18, fontWeight: 700 }}>Récompenses LIVE évolutives</div>
+          <div style={{ display: 'flex', gap: 12, alignItems: 'center', fontSize: 18 }}>
+            <span>❤️ {hearts}</span>
+            <span>👁️ {viewers}</span>
+          </div>
+        </div>
       </div>
-      {/* Compteurs */}
-      <div style={counterStyle}>
-        <span>❤️ {hearts}</span>
-        <span>👁️ {viewers}</span>
+      {/* Titre et bouton live */}
+      <div style={{
+        marginTop: 32,
+        width: '100%',
+        maxWidth: 400,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        gap: 16,
+      }}>
+        <input
+          type="text"
+          placeholder="Ajouter un titre"
+          value={title}
+          onChange={e => setTitle(e.target.value)}
+          style={{
+            width: '100%',
+            padding: '1rem',
+            borderRadius: 16,
+            border: 'none',
+            fontSize: '1.1rem',
+            marginBottom: 8,
+            background: '#23272f',
+            color: '#fff',
+            outline: 'none',
+          }}
+        />
+        <button
+          style={{
+            background: 'linear-gradient(90deg, #ff1b6b 0%, #45caff 100%)',
+            color: '#fff',
+            border: 'none',
+            borderRadius: '32px',
+            padding: '1rem 2.5rem',
+            fontSize: '1.2rem',
+            fontWeight: 700,
+            cursor: 'pointer',
+            boxShadow: '0 4px 24px 0 rgba(69,202,255,0.15)',
+            transition: 'transform 0.15s',
+          }}
+          onClick={() => setIsLive(true)}
+        >
+          Passer en LIVE
+        </button>
       </div>
-      {/* Actions principales */}
-      <div style={actionGridStyle}>
-        <button>🔄<br/>Retourner</button>
-        <button>✨<br/>Embellir</button>
-        <button>🎭<br/>Effets</button>
-        <button>⚙️<br/>Paramètres</button>
-        <button>💖<br/>Fan Club</button>
-        <button>🛠️<br/>Service+</button>
-        <button>🤝<br/>Interagir</button>
-        <button>🔗<br/>Partager</button>
-        <button>🔥<br/>Promouvoir</button>
-      </div>
-      {/* Ajouter un titre */}
-      <div style={infoStyle}>
-        <input type="text" placeholder="Ajouter un titre" style={{width:'220px',padding:'8px',borderRadius:'8px',border:'none',fontSize:'15px'}} />
-      </div>
-      {/* Bouton LIVE */}
-      <div style={{display:'flex',justifyContent:'center',marginTop:'180px'}}>
-        <button style={liveButtonStyle}>Passer en LIVE</button>
-      </div>
-      {/* Options vocal/caméra/jeu */}
-      <div style={{position:'absolute',bottom:'80px',left:'16px',color:'#fff',fontSize:'15px',display:'flex',gap:'18px'}}>
-        <span>🗣️ Chat vocal</span>
-        <span>📷 Caméra de l'appareil</span>
-        <span>🎮 Jeu mobile</span>
-      </div>
-      {/* Barre navigation inférieure */}
-      <nav style={bottomBarStyle}>
-        <button>LIVE</button>
-        <button>PUBLIER</button>
-        <button>CRÉER</button>
-      </nav>
+    </div>
+  );
+}
+
+function ActionIcon({ icon, label }) {
+  return (
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      cursor: 'pointer',
+      opacity: 0.9,
+      transition: 'opacity 0.2s',
+    }} title={label}>
+      <span style={{ fontSize: 28 }}>{icon}</span>
+      <span style={{ fontSize: 10, marginTop: 2 }}>{label}</span>
     </div>
   );
 }
