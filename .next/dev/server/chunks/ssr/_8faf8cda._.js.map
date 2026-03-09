@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/alex1477/Desktop/pittch/pitchyes/app/layout.jsx"],"sourcesContent":["// layout.jsx\r\n// Layout racine requis par Next.js 13+\r\n\r\nexport default function RootLayout({ children }) {\r\n  return (\r\n    <html lang=\"fr\">\r\n      <body style={{ margin: 0, padding: 0, background: '#000' }}>{children}</body>\r\n    </html>\r\n  );\r\n}\r\n"],"names":[],"mappings":"AAAA,aAAa;AACb,uCAAuC;;;;;;;AAExB,SAAS,WAAW,EAAE,QAAQ,EAAE;IAC7C,qBACE,8OAAC;QAAK,MAAK;kBACT,cAAA,8OAAC;YAAK,OAAO;gBAAE,QAAQ;gBAAG,SAAS;gBAAG,YAAY;YAAO;sBAAI;;;;;;;;;;;AAGnE"}},
+    {"offset": {"line": 37, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/alex1477/node_modules/next/src/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.ts"],"sourcesContent":["module.exports = (\n  require('../../module.compiled') as typeof import('../../module.compiled')\n).vendored['react-rsc']!.ReactJsxDevRuntime\n"],"names":["module","exports","require","vendored","ReactJsxDevRuntime"],"mappings":"AAAAA,OAAOC,OAAO,GACZC,QAAQ,4HACRC,QAAQ,CAAC,YAAY,CAAEC,kBAAkB","ignoreList":[0]}}]
+}

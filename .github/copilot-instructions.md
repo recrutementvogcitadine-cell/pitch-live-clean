@@ -1,0 +1,7 @@
+- [x] Structure Next.js, dossiers et composants créés
+- [ ] Clarifier besoins spécifiques si nécessaire
+- [ ] Ajouter README et documentation
+- [ ] Préparer configuration Agora/Supabase
+- [ ] Installer dépendances
+- [ ] Compiler et tester
+- [ ] Finaliser instructions et documentation
