@@ -100,6 +100,8 @@ const HomePage = () => {
   };
   return (
     <div style={screenStyle}>
+        {/* Lien test vers /live */}
+        <a href="/live" style={{position:'fixed',top:10,right:10,background:'#ff3366',color:'#fff',padding:'8px 16px',borderRadius:'8px',zIndex:1000,textDecoration:'none',fontWeight:'bold'}}>Aller à /live</a>
       {/* Barre supérieure */}
       <div style={{width:'100%',background:'#181818',color:'#fff',padding:'8px 0',display:'flex',alignItems:'center',justifyContent:'space-between',fontSize:'15px',position:'fixed',top:0,zIndex:10}}>
         <span style={{marginLeft:12,fontWeight:'bold'}}>LIVE</span>
