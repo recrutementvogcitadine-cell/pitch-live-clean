@@ -1,3 +1,5 @@
+
+"use client";
 // page.jsx
 // Interface créateur LIVE type TikTok
 import React, { useState } from 'react';
