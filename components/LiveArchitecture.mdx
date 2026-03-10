@@ -1,0 +1,24 @@
+---
+title: "Architecture du flux live Pitch Live"
+---
+
+import Mermaid from '@theme/Mermaid';
+
+<Mermaid chart={
+`graph TD
+  A[Créateur] -->|Caméra| B(Agora SDK)
+  B --> C[Serveur streaming Agora]
+  C --> D[Spectateurs connectés]
+`}/>
+
+**Explications** :
+- Le créateur démarre un live avec sa caméra (LiveCamera.jsx)
+- Le flux vidéo passe par Agora SDK (agoraClient.js)
+- Agora gère la diffusion en temps réel vers tous les spectateurs
+- Les spectateurs regardent le live via LivePlayer.jsx
+- Les réactions (ReactionBar.jsx) sont envoyées en temps réel (via Supabase ou WebSocket)
+
+Cette architecture garantit :
+- Latence très faible
+- Qualité vidéo stable
+- Scalabilité massive

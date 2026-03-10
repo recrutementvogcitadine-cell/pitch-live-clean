@@ -1,4 +1,19 @@
-"use client";
+export default function LiveFeed({ lives }) {
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+      {lives && lives.length > 0 ? (
+        lives.map(live => (
+          <div key={live.id} style={{ background: '#23272f', borderRadius: 12, padding: 16 }}>
+            <div style={{ fontWeight: 700 }}>{live.title}</div>
+            <div style={{ fontSize: 14, opacity: 0.7 }}>👤 {live.creator} · 👁️ {live.viewers}</div>
+          </div>
+        ))
+      ) : (
+        <div>Aucun live en cours</div>
+      )}
+    </div>
+  );
+}"use client";
 // LiveFeed.jsx
 // Composant pour afficher la liste des lives actifs
 import React, { useEffect, useState } from 'react';
